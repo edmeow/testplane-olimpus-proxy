@@ -31,7 +31,7 @@ class ProxyManager {
     this.cache.get(id)?.results.push(result);
   }
 
-  static addPendingProject(id: number, url: string) {
+  static changeProjectStateToPending(id: number, url: string) {
     if (this.locked) {
       throw new Error("Tryed to run test while another one was running");
     }
@@ -40,9 +40,9 @@ class ProxyManager {
 
     this.setEntryPoint(url);
   }
-  static promisePendingProject(id: number) {
+  static initEmptyProject(id: number) {
     const pendingSolution: Solution = {
-      state: "pending",
+      state: "not-started",
       type: "project",
       results: [],
       id,

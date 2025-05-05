@@ -8,6 +8,6 @@ export interface Result {
 export interface Solution {
   id: number;
   type: "project" | "single-file";
-  state: "pending" | "resolved";
+  state: "pending" | "resolved" | "not-started";
   results: Result[];
 }

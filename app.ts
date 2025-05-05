@@ -36,11 +36,12 @@ app.get("/run/project", async (req, res) => {
     res.status(200).send();
     return;
   }
-  ProxyManager.promisePendingProject(answerId);
+
+  ProxyManager.initEmptyProject(answerId);
 
   if (ProxyManager.isLock()) await ProxyManager.waitForUnlock();
 
-  ProxyManager.addPendingProject(answerId, solutionEntryPointUrl);
+  ProxyManager.changeProjectStateToPending(answerId, solutionEntryPointUrl);
 
   const testPassListener = (test: TestResult) => {
     ProxyManager.addResultToSolution(answerId, {
