@@ -1,0 +1,17 @@
+name: tester
+volumes:
+  backend_content_olympiad:
+    external: true
+services:
+  node:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - backend_content_olympiad:/content:ro
+networks:
+  default:
+    name: olympiad_network
+    external: true
