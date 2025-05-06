@@ -36,6 +36,9 @@ class ProxyManager {
       throw new Error("Tryed to run test while another one was running");
     }
 
+    const solution = this.getSolutionById(id);
+    if (solution) solution.state = "pending";
+
     this.locked = true;
 
     this.setEntryPoint(url);
