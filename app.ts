@@ -64,7 +64,7 @@ app.get("/run/project", async (req, res) => {
 
   testplane.on(testplane.events.TEST_FAIL, testFailListener);
 
-  testplane.once(testplane.events.SUITE_END, () => {
+  testplane.once(testplane.events.END, () => {
     ProxyManager.resolve(answerId);
     testplane.removeListener(testplane.events.TEST_PASS, testPassListener);
     testplane.removeListener(testplane.events.TEST_FAIL, testFailListener);

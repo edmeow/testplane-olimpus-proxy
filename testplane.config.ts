@@ -2,7 +2,7 @@ import type { ConfigInput } from "testplane";
 import { readFileSync } from "node:fs";
 
 export default {
-  gridUrl: "http://localhost:4444/wd/hub",
+  gridUrl: "http://127.0.0.1:4444/wd/hub",
   baseUrl: "file:///",
   pageLoadTimeout: 1000,
   httpTimeout: 10000,
@@ -15,9 +15,12 @@ export default {
     "chrome": {
       automationProtocol: "devtools",
       headless: true,
-      sessionsPerBrowser: 10,
+      sessionsPerBrowser: 1,
       desiredCapabilities: {
         browserName: "chrome",
+        "goog:chromeOptions": {
+          args: ["--no-sandbox"],
+      },
       },
     },
   },
