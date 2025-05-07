@@ -40,7 +40,7 @@ app.get("/run/project", async (req, res) => {
   ProxyManager.initEmptyProject(answerId);
 
   if (ProxyManager.isLock()) await ProxyManager.waitForUnlock();
-
+  const perf = performance.now();
   ProxyManager.changeProjectStateToPending(answerId, solutionEntryPointUrl);
 
   const testPassListener = (test: TestResult) => {
@@ -66,11 +66,12 @@ app.get("/run/project", async (req, res) => {
 
   testplane.once(testplane.events.END, () => {
     ProxyManager.resolve(answerId);
+    console.log(performance.now() - perf)
     testplane.removeListener(testplane.events.TEST_PASS, testPassListener);
     testplane.removeListener(testplane.events.TEST_FAIL, testFailListener);
   });
-
-  testplane.run([testUrl]);
+  const testCollection = await testplane.readTests([testUrl]);
+  testplane.run(testCollection);
 
   res.status(200).send();
 });

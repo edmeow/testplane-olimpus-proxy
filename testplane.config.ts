@@ -6,11 +6,15 @@ export default {
   baseUrl: "file:///",
   pageLoadTimeout: 1000,
   httpTimeout: 10000,
-  testTimeout: 70000,
+  testTimeout: 150000,
   waitTimeout: 500,
   waitInterval: 500,
   resetCursor: false,
   headless: true,
+  takeScreenshotOnFails: {
+    testFail:false,
+    assertViewFail:false
+  },
   browsers: {
     "chrome": {
       automationProtocol: "devtools",
@@ -23,6 +27,9 @@ export default {
       },
       },
     },
+  },
+  system: {
+    workers: 1
   },
   prepareBrowser: (browser) => {
     browser.url(readFileSync(".entry-point", "utf-8"));
